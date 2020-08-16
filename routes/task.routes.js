@@ -4,12 +4,13 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/", tasks.create);
+    router.post("/create", tasks.create);
     // get all tasks
     router.get("/get", tasks.get);
     router.get("/search", tasks.search)
     router.delete("/delete", tasks.delete);
-    router.post("/update",tasks.update);
+    router.put("/update",tasks.update);
+    router.get("/getTask", tasks.getTask);
 
     app.use('/api/tasks', router);
 

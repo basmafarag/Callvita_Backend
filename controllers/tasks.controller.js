@@ -59,11 +59,11 @@ exports.create = (req, res) => {
 
     // Create a Tutorial
     const task = new Object({
-      id: req.query.id,
-      title: req.query.title,
-      description: req.query.description 
-    });
-    res.status(400).send({message: "Task Added"});
+        id: tasks.length,
+        title: req.body.title,
+        description: req.body.description 
+      });
+    res.status(200).send({message: "Task Added"});
 
     // Save Tutorial in the database
     console.log(tasks.length);
@@ -79,6 +79,11 @@ exports.delete = (req, res) => {
 
     const id = req.query.id;
 
+    for (let i ; i < tasks.length; i++) {
+        if (tasks[i].id === parseInt(req.query.id)) {
+            tasks.splice(i,i+1);           
+        }
+    }
     // Remove item from the books array
     task = tasks.filter(i => {
         if (i.id != id) {
@@ -112,3 +117,18 @@ exports.update = (req, res) => {
     console.log(tasks[i]);
     res.send('Book is edited');
 };
+
+//get all tasks stored in the database.
+exports.getTask =  (req, res) => {
+    console.log(req.query)
+
+    for (let task of tasks) {
+        if (task.id === parseInt(req.query.id)) {
+            res.json(task);           
+        }
+    }
+};
+
+
+
+
