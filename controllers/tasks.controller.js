@@ -36,10 +36,11 @@ exports.search = (req, res) => {
     //console.log(req);
     for (let task of tasks) {
         if (task.title == title || task.description == description) {
-            res.json(task);
+            res.json([task]);
             return;
         }else{
-            //res.status(404).send('task not found');
+            res.json(tasks);
+
             console.log("task not found")
         }
     }
@@ -102,7 +103,7 @@ exports.update = (req, res) => {
 
 
 
-//get all tasks stored in the database.
+//get specific task stored in the database.
 exports.getTask =  (req, res) => {
    // console.log(req.query)
 
