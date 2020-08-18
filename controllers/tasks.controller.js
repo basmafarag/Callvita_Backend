@@ -35,13 +35,15 @@ exports.search = (req, res) => {
 
     console.log(req);
     for (let task of tasks) {
-        if (task.title === title || task.description === description) {
+        if (task.title == title || task.description == description) {
             res.json(task);
             return;
+        }else{
+            //res.status(404).send('task not found');
+            console.log("task not found")
         }
     }
 
-    res.status(404).send('task not found');
 };
 
 //create a new task
