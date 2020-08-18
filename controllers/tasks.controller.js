@@ -33,7 +33,7 @@ exports.search = (req, res) => {
     const title = req.query.title;
     const description = req.query.description;
 
-    console.log(req);
+    //console.log(req);
     for (let task of tasks) {
         if (task.title == title || task.description == description) {
             res.json(task);
@@ -58,11 +58,8 @@ exports.create = (req, res) => {
     res.status(200).send({message: "Task Added"});
 
     // Save Tutorial in the database
-    console.log(tasks.length);
     tasks.push(task);
-    console.log(tasks.length);
 
-    console.log(tasks[3].title);
 //}
   };
 
@@ -90,28 +87,24 @@ exports.delete = (req, res) => {
 exports.update = (req, res) => {
 
     const id = req.query.id;
-    const newTask = req.query;
+    const newTask = req.body;
 
-    // Remove item from the books array
-    const i=0;
-    for (let i ; i < tasks.length; i++) {
+    for (let i=0 ; i < tasks.length; i++) {
+
         let task = tasks[i]
-        if (task.id === id) {
-            
-            tasks[i].id = newTask.id;
-            tasks[i].title = newTask.title;
-            tasks[i].description = newTask.description;
-           
+        if (task.id == id) {
+            tasks[i]= newTask;
         }
+        
     }
-    console.log(newTask);
-    console.log(tasks[i]);
-    res.send('Book is edited');
+    res.send('Task is edited');
 };
+
+
 
 //get all tasks stored in the database.
 exports.getTask =  (req, res) => {
-    console.log(req.query)
+   // console.log(req.query)
 
     for (let task of tasks) {
         if (task.id === parseInt(req.query.id)) {
