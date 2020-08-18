@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 //const cors = require('cors');
 
 const app = express();
-const tasks = [{
+var tasks = [{
     id: 1,
     title: 'Learn React',
     description: 'Learn how to use react in building web app'
@@ -47,19 +47,9 @@ exports.search = (req, res) => {
 //create a new task
 exports.create = (req, res) => {
     
-   // TODO //Validation
-
-    // Validate request
-
-    //   if (!req.query) {
-    //     res.status(400).send({ message: "Content can not be empty!" });
-    //     return;
-    //   }
-    //   else{
-
-    // Create a Tutorial
+  
     const task = new Object({
-        id: tasks.length,
+        id: tasks.length+1,
         title: req.body.title,
         description: req.body.description 
       });
@@ -78,12 +68,12 @@ exports.create = (req, res) => {
 exports.delete = (req, res) => {
 
     const id = req.query.id;
-
-    for (let i ; i < tasks.length; i++) {
-        if (tasks[i].id === parseInt(req.query.id)) {
-            tasks.splice(i,i+1);           
+    for (let i=0 ; i < tasks.length; i++) {
+        if (tasks[i].id == id) {
+            tasks = tasks.slice(0, i).concat(tasks.slice(i + 1, tasks.length));
         }
     }
+
     // Remove item from the books array
     task = tasks.filter(i => {
         if (i.id != id) {
@@ -91,7 +81,6 @@ exports.delete = (req, res) => {
         }
         return false;
     });
-
     res.send('Book is deleted');
 };
 
