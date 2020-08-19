@@ -29,22 +29,10 @@ exports.get =  (req, res) => {
 
 //search for a task by title or descripition
 exports.search = (req, res) => {
-
-    const title = req.query.title;
-    const description = req.query.description;
-
-    //console.log(req);
-    for (let task of tasks) {
-        if (task.title == title || task.description == description) {
-            res.json([task]);
-            return;
-        }else{
-            res.json(tasks);
-
-            console.log("task not found")
-        }
-    }
-
+    const query = req.query.title;
+    let results = tasks.filter(item => item.title.toLowerCase().indexOf(query) > -1
+        || item.description.toLowerCase().indexOf(query) > -1);
+    res.json(results);
 };
 
 //create a new task
